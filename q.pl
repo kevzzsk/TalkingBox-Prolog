@@ -10,13 +10,6 @@ waterpolo([team,sevenman,indoor,water,ball,highestpoint,pool]).
 track([single,outdoor,fastest,court]).
 floorball([court,team,sixman,ball,stick,indoor,highestpoint]).
 
-/*
-team_size(singles,double,team).
-arena_type(pool).
-play_device(water).
-game_mode(timed).
-performance(fastest).
-*/
 /* RULES */
 has(X):-
     tennis(L),
@@ -47,6 +40,7 @@ is(X):-
     selected(X).
 
 
+
 :- dynamic counter/1.
 
 initcounter :-
@@ -60,6 +54,7 @@ incr :-
     assertz(counter(V)).
 
 :- initcounter.
+
 
 
 selected(tennis).
