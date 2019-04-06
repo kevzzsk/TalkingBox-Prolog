@@ -1,0 +1,6 @@
+
+PACKER DETECTION ALERT
+
+The anti-virus scanner has detected a packer program.  The file was not cleaned and has been removed.
+Context: 'TalkingBoxPrologOnly.zip\TalkingBox_Demo\TalkingBox_Debug\TalkingBox.exe'
+Detection(s): 'ZIP SFX.a (compressed file)'
