@@ -1,9 +1,9 @@
-from __future__ import print_function
 from pyswip import Prolog
 from tkinter import *
 from tkinter import messagebox
 
 def start():
+    #start prolog
     prolog = Prolog()
     prolog.consult("q.pl")
     #create base GUI
@@ -15,7 +15,7 @@ def start():
     counter.set(0)
     category = StringVar()
     category.set("OLYMPIC SPORTS")
-    #add choice to category list
+    #add category options for users
     choices=["OLYMPIC SPORTS","POKEMON"]
     queries_done = []
     
@@ -56,10 +56,11 @@ def start():
                 button_q.config(state=DISABLED)
                 messagebox.showinfo("Guessing Time","You have run out of query!\n Guess now!")
                 pass
-        x.set("")
+        x.set("") #clear input box after every query
 
     def change_dropdown(*args):
         # every change of category pick random item
+        # FUTURE implementation
         # prolog retract and assert category picked
         print( category.get() )
 
@@ -82,7 +83,7 @@ def start():
     def handleAllQuery():
         #create a new small window to display all available query
         list_query = Toplevel()
-        list_query.title("List of All Queries")
+        list_query.title("All Queries")
         query_listbox = Listbox(list_query)
         query_listbox.config(height=0,width=0)
         #generate list of items
@@ -99,9 +100,9 @@ def start():
         x.set("".join(list(active_item)[4:-1]))        
     
     def handleAllGuess():
-        #create a new small window to display all available query
+        #create a new small window to display all available guesses
         list_guess = Toplevel()
-        list_guess.title("List of All Guesses")
+        list_guess.title("All Guesses")
         guess_listbox = Listbox(list_guess)
         guess_listbox.config(height=0,width=0)
         #generate list of items
@@ -117,6 +118,7 @@ def start():
     #bind enter-key to Query button
     root.bind('<Return>', handleQuery)
 
+    #Creating instances for GUI
     label_title = Label(root, text="10 Questions",font=("Roboto",30))
     label_category = Label(root, text="Category",font=("Roboto",18))
     menu_cat = OptionMenu(root, category,*choices )
