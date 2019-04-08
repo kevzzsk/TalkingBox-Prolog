@@ -15,15 +15,15 @@ compiled by pyinstaller: `pyinstaller -D -w --add-data q.pl;. p.py `
 ps. compiling as one file (-F) will not work!
 
 
-There are two ways to start the program
+There are three methods to start the program
 
-### First way 
+### First Method 
 The program is compiled and build into .exe
 
 go to `dist\p` and click on `p.exe` to run
 
 
-### Second way
+### Second Method
 Running the program using cmd and python virtualenv.
 
 Activate virtualenv: `> python-lab/Scripts/activate`
@@ -32,6 +32,14 @@ run python script: `> python p.py`
 
 To deactivate virtualenv: `> deactivate`
 
+### Third Method
+This method will work with any OS. 
+
+Ensure python is downloaded (python 3.7.3 is tested to work).
+
+download dependencies `> pip install pyswip`
+
+run python script:  `> python p.py`
 
 ## Extra
 
