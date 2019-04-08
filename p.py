@@ -8,6 +8,7 @@ def start():
     prolog.consult("q.pl")
     #create base GUI
     root = Tk()
+    root.title("CZ3005 - AI")
     #init input listener
     x = StringVar()
     y = StringVar()
@@ -28,34 +29,32 @@ def start():
         if(x.get()!=""):
             if(x.get().lower() in queries_done):
                 messagebox.showwarning("Queries done!","has("+x.get().lower()+") was queried!")
-            elif (int(counter.get()) < 9):
+            else:
                 # format query
-                qry = "has("+x.get().lower()+")"
+                qry = "has("+x.get().lower()+",Out)"
                 q_result = prolog.query(qry)
-
+                q_result = list(q_result)[0]
                 # get counter to see number of queries left
                 counter.set(list(prolog.query("counter(X)"))[0]['X'])
-                print(list(prolog.query("counter(X)")))
-                label_counter.config(text="Number of Guesses: "+str(9-int(counter.get())))
-                #keep track of queries done to remove duplicate query
-                queries_done.append(x.get().lower())
-                # true if return {}, false if nothing
-                if(list(q_result) == []):
-                    #insert to false listbox
-                    hist_listbox_f.insert(END,qry)
-                    
-                else:
+                label_counter.config(text="Number of Queries Left: "+str(10-int(counter.get())))
+                
+                # Out=0 => query is true, 
+                # Out=1 => query is False, 
+                # Out=2 counter is more than 10
+                if(q_result['Out'] == 0 ):
                     #insert to true listbox
-                    hist_listbox_t.insert(END,qry)
-
-            else:
-                # counter > 10
-                # Force disable query
-                # msg to guess
-                print("counter more than 10")
-                button_q.config(state=DISABLED)
-                messagebox.showinfo("Guessing Time","You have run out of query!\n Guess now!")
-                pass
+                    hist_listbox_t.insert(END,"has("+x.get().lower()+")")
+                    #keep track of queries done to remove duplicate query
+                    queries_done.append(x.get().lower())
+                elif (q_result['Out'] == 1):
+                    #insert to false listbox
+                    hist_listbox_f.insert(END,"has("+x.get().lower()+")")
+                    #keep track of queries done to remove duplicate query
+                    queries_done.append(x.get().lower())
+                elif q_result['Out'] == 2:
+                    # counter more than 10
+                    button_q.config(state=DISABLED)
+                    messagebox.showinfo("Guessing Time","You have run out of query!\n Guess now!")
         x.set("") #clear input box after every query
 
     def change_dropdown(*args):
@@ -132,7 +131,7 @@ def start():
     guess = Entry(mid_frame,textvariable=y)
     button_guess = Button(mid_frame,text="Guess",command=handleGuess,width=5)
     history_frame = LabelFrame(root,bd=5,relief=GROOVE,text="Queries")
-    label_counter = Label(history_frame,text="Number of Guesses: 10")
+    label_counter = Label(history_frame,text="Number of Queries Left: 10")
     hist_listbox_t = Listbox(history_frame,activestyle=NONE,yscrollcommand=Scrollbar(history_frame,orient=VERTICAL).set)
     label_t = Label(history_frame, text = "True")
     hist_listbox_f = Listbox(history_frame,activestyle=NONE,yscrollcommand=Scrollbar(history_frame,orient=VERTICAL).set)
@@ -165,6 +164,7 @@ def start():
 
     button_all_query.grid(row=3,sticky= N+E+W+S)
     button_all_guess.grid(row=3,column=1,sticky= N+E+W+S)
+    
     root.mainloop()
 
 
