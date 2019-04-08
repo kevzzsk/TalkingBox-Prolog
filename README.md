@@ -2,12 +2,12 @@
 
 Talking box in Prolog and Python wrapper as GUI with tkinter
 
-### Overview 
+## Overview 
 Game : 10 Questions
 
 Prolog will choose a random sport, then user will have to guess it by asking maximum of 10 questions. Prolog can only answer yes/no.
 
-# Starting Program
+## Starting Program
 Build for windows (tested for Win 10)
 
 compiled by pyinstaller
@@ -20,13 +20,13 @@ Linux system will not be able to run the program.
 
 There are two ways to start the program
 
-## First way 
+### First way 
 The program is compiled and build into .exe
 
 go to `dist\p` and click on `p.exe` to run
 
 
-## Second way
+### Second way
 Running the program using cmd and python virtualenv.
 
 Activate virtualenv: `> python-lab/Scripts/activate`
@@ -38,7 +38,7 @@ run python script: `> python p.py`
 To deactivate virtualenv: `> deactivate`
 
 
-# Extra
+## Extra
 
 Dependencies: pyswip (pip3 install pyswip)
 
