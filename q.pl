@@ -9,48 +9,61 @@ waterpolo([team,seven_man,indoor,water,ball,highestpoint,pool]).
 track([single,outdoor,fastest,court]).
 floorball([court,team,six_man,ball,stick,indoor,highestpoint]).
 
+/* list of sports to be choosen from */
 randomizer_sports([tennis,swimming,basketball,table_tennis,waterpolo,track,floorball]).
 
 /* RULES */
+
+/* Out=0 => X is true, 
+   Out=1 => X is False, 
+   Out=2 counter is more than 10 */
+has(X,Out):-
+    counter(C),
+    C<10 ->
+    (has(X) ->
+    Out is 0
+    ;Out is 1)
+    ;Out is 2.
+
 has(X):-
-    tennis(L),
     selected(tennis),
+    tennis(L),
     incr,
     member(X,L).
 
 has(X):-
-    swimming(L),
     selected(swimming),
+    swimming(L),
     incr,
     member(X,L).
 
 has(X):-
-    basketball(L),
     selected(basketball),
+    basketball(L),
     incr,
     member(X,L).
 
 has(X):-
-    table_tennis(L),
     selected(table_tennis),
+    table_tennis(L),
     incr,
     member(X,L).
 
 has(X):-
-    waterpolo(L),
     selected(waterpolo),
+    waterpolo(L),
     incr,
     member(X,L).
 
 has(X):-
-    track(L),
     selected(track),
+    track(L),
     incr,
     member(X,L).
 
 has(X):-
-    floorball(L),
     selected(floorball),
+    floorball(L),
     incr,
     member(X,L).
 
@@ -58,7 +71,7 @@ has(X):-
 is(X):-
     selected(X).
 
-
+/* randomly pick one sports */
 pick_random :-
     category(sports),
     randomizer_sports(L),
@@ -66,6 +79,7 @@ pick_random :-
     retractall(selected(_)),
     assertz(selected(X)).
 
+/* append all the sports' list, remove duplicate and flatten the list */
 list_flat :-
     tennis(A),
     swimming(B),
@@ -93,7 +107,7 @@ remove_dupe([H|T],L) :-
     append(L,[H],L2),
     remove_dupe(T,L2).
 
-
+/* add counter(0) to KB at the start */
 initcounter :-
     retractall(counter(_)),
     assertz(counter(0)).
